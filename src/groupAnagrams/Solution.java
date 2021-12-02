@@ -19,7 +19,7 @@ class Solution {
             for (int i =0; i< input.length(); i++) {
                 char c = input.charAt(i);
                 if (hm.containsKey(c)) {
-                    hm.replace(c, this.hash.get(c)+1);
+                    hm.replace(c,hm.get(c)+1);
                 } else {
                     hm.put(c, 1);
                 }
