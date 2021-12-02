@@ -5,50 +5,21 @@ import java.util.stream.Collectors;
 
 class Solution {
 
-    static class Group {
-        List<String> strings;
-        HashMap<Character, Integer> hash;
-
-        Group(String input){
-            this.hash = computeHashmap(input);
-            this.strings = new ArrayList<>(Collections.singletonList(input));
-        }
-
-        private HashMap<Character, Integer> computeHashmap(String input) {
-            HashMap<Character, Integer> hm = new HashMap<>();
-            for (int i =0; i< input.length(); i++) {
-                char c = input.charAt(i);
-                if (hm.containsKey(c)) {
-                    hm.replace(c,hm.get(c)+1);
-                } else {
-                    hm.put(c, 1);
-                }
-            }
-            return hm;
-        }
-
-        void merge(Group g){
-            if (g.hash.equals(this.hash)){
-                this.strings.addAll(g.strings);
-            }
-        }
-
-    }
-
     public static List<List<String>> groupAnagrams(List<String> strs) {
         // WRITE YOUR BRILLIANT CODE HERE
-        HashMap<Integer,Group> groups = new HashMap<>();
+      HashMap<String,List<String>> groups = new HashMap<>();
 
         for (String word : strs) {
-            Group g = new Group(word);
-            if (groups.containsKey(g.hash.hashCode())) {
-                groups.get(g.hash.hashCode()).merge(g);
+            char[] charKey = word.toCharArray();
+           Arrays.sort(charKey);
+           String key = new String(charKey);
+            if (groups.containsKey(key)) {
+                groups.get(key).add(word);
             } else {
-                groups.put(g.hash.hashCode(),g);
+                groups.put(key,new ArrayList<>(Collections.singletonList(word)));
             }
-
         }
-       return groups.values().stream().map(g -> g.strings).collect(Collectors.toList());
+       return new ArrayList<>(groups.values());
     }
 
     public static List<String> splitWords(String s) {
