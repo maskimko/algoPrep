@@ -12,8 +12,9 @@ func squareRoot(n int) int {
     if n == 0 {
         return 0
     }
-    for right = n; left<=right; {
-        mid := left + (right-left)/2
+    var mid int
+    for right = n; left<right; {
+        mid = left + (right-left)/2
         square := mid*mid
         if square == n {
             return mid
@@ -23,7 +24,10 @@ func squareRoot(n int) int {
             left = mid+1
         }
     }
-    return left
+    if right*right == n {
+        return right
+    }
+    return mid
 }
 
 func main() {
