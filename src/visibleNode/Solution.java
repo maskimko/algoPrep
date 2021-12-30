@@ -21,7 +21,10 @@ class Solution {
     }
 
     private  static int visibleTreeNode(Node<Integer> root, int max) {
-       int maximum = max;
+       if (root == null) {
+           return 0;
+       }
+        int maximum = max;
        int visible =0;
         if (root.val>=max) {
             maximum = root.val;
