@@ -7,10 +7,10 @@ class Solution {
 
     private final static int modulo = 1000000007;
     private static BigInteger howManyUglyOf(BigInteger k, BigInteger a, BigInteger b, BigInteger c) {
-        BigInteger acInt = a.multiply(c);
-        BigInteger abInt = a.multiply(b);
-        BigInteger bcInt = b.multiply(c);
-        BigInteger abcInt = abInt.multiply(c);
+        BigInteger acInt = a.multiply(c).divide(a.gcd(c));
+        BigInteger abInt = a.multiply(b).divide(a.gcd(b));
+        BigInteger bcInt = b.multiply(c).divide(b.gcd(c));
+        BigInteger abcInt = abInt.multiply(c).divide(abInt.gcd(c));
         BigInteger uglyCount = (k.divide(a)).add(k.divide(b)).add(k.divide(c))
                 .subtract(k.divide(acInt)).subtract(k.divide(abInt)).subtract(k.divide(bcInt))
                 .add(k.divide(abcInt));
@@ -33,7 +33,7 @@ class Solution {
            k = howManyUglyOf(mid, aInt, bInt, cInt);
            if (k.compareTo(BigInteger.valueOf(n))>0) {
                high = mid.subtract(BigInteger.valueOf(1));
-           } else  {
+           } else  if (k.compareTo(BigInteger.valueOf(n))<0) {
                low = mid.add(BigInteger.valueOf(1));
            }
        }
