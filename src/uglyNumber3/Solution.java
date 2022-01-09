@@ -6,7 +6,7 @@ import java.util.Scanner;
 class Solution {
 
     private final static int modulo = 1000000007;
-    private static BigInteger howManyUglyOf(BigInteger k, BigInteger a, BigInteger b, BigInteger c) {
+     static BigInteger howManyUglyOf(BigInteger k, BigInteger a, BigInteger b, BigInteger c) {
         BigInteger acInt = a.multiply(c).divide(a.gcd(c));
         BigInteger abInt = a.multiply(b).divide(a.gcd(b));
         BigInteger bcInt = b.multiply(c).divide(b.gcd(c));
