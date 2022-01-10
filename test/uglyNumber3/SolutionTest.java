@@ -15,13 +15,20 @@ class SolutionTest {
 
     @Test
     void nthUglyNumber2() {
-        assertEquals(10,Solution.nthUglyNumber(8,2,3,4));
+        assertEquals(12,Solution.nthUglyNumber(8,2,3,4));
     }
 
     @Test
     void nthUglyNumber3() {
-        assertEquals(88244,Solution.nthUglyNumber(1,88244,55236,44288));
+        assertEquals(88244,Solution.nthUglyNumber(88244,55236,44288,1 ));
     }
+
+
+    @Test
+    void nthUglyNumber5() {
+        assertEquals(830665264,Solution.nthUglyNumber(20231774,4234,2117,6351));
+    }
+
 
     @Test
     void howManyUglyOf14() {

@@ -6,15 +6,15 @@ import java.util.Scanner;
 class Solution {
 
     private final static int modulo = 1000000007;
-     static BigInteger howManyUglyOf(BigInteger k, BigInteger a, BigInteger b, BigInteger c) {
+
+    static BigInteger howManyUglyOf(BigInteger k, BigInteger a, BigInteger b, BigInteger c) {
         BigInteger acInt = a.multiply(c).divide(a.gcd(c));
         BigInteger abInt = a.multiply(b).divide(a.gcd(b));
         BigInteger bcInt = b.multiply(c).divide(b.gcd(c));
         BigInteger abcInt = abInt.multiply(c).divide(abInt.gcd(c));
-        BigInteger uglyCount = (k.divide(a)).add(k.divide(b)).add(k.divide(c))
+        return (k.divide(a)).add(k.divide(b)).add(k.divide(c))
                 .subtract(k.divide(acInt)).subtract(k.divide(abInt)).subtract(k.divide(bcInt))
                 .add(k.divide(abcInt));
-        return uglyCount;
     }
 
     public static int nthUglyNumber(int n, int a, int b, int c) {
@@ -22,23 +22,32 @@ class Solution {
         BigInteger aInt = BigInteger.valueOf(a);
         BigInteger bInt = BigInteger.valueOf(b);
         BigInteger cInt = BigInteger.valueOf(c);
-        BigInteger maxArg = aInt.max(bInt).max(cInt);
-        BigInteger low = BigInteger.valueOf(0);
-       BigInteger high = BigInteger.valueOf(n).multiply(BigInteger.valueOf(a).multiply(BigInteger.valueOf(b).multiply(BigInteger.valueOf(c))));
-       BigInteger mid = BigInteger.valueOf(0);
-       BigInteger k = BigInteger.ZERO;
-       while (!k.equals(BigInteger.valueOf(n))) {
-           mid = low.add((high.subtract(low).divide(BigInteger.valueOf(2))));
-           if (high.subtract(low).compareTo(BigInteger.valueOf(1)) < 1) break;
-           k = howManyUglyOf(mid, aInt, bInt, cInt);
-           if (k.compareTo(BigInteger.valueOf(n))>0) {
-               high = mid.subtract(BigInteger.valueOf(1));
-           } else  if (k.compareTo(BigInteger.valueOf(n))<0) {
-               low = mid.add(BigInteger.valueOf(1));
-           }
-       }
-       if (mid.compareTo(maxArg)<0) return maxArg.mod(BigInteger.valueOf(modulo)).intValue();
-       return mid.mod(BigInteger.valueOf(modulo)).intValue();
+        BigInteger nInt = BigInteger.valueOf(n);
+        BigInteger low = BigInteger.valueOf(n);
+        BigInteger mod = BigInteger.valueOf(modulo);
+        BigInteger high = BigInteger.valueOf(n).multiply(BigInteger.valueOf(a).min(BigInteger.valueOf(b).min(BigInteger.valueOf(c))));
+        BigInteger mid;
+        BigInteger k = null;
+        while (k == null || !k.equals(BigInteger.valueOf(n))) {
+            mid = low.add((high.subtract(low).divide(BigInteger.valueOf(2))));
+            if (high.compareTo(low) < 0) {
+                break;
+            }
+            k = howManyUglyOf(mid, aInt, bInt, cInt);
+            if (k.compareTo(nInt) > 0) {
+                high = mid.subtract(BigInteger.valueOf(1));
+            } else if (k.compareTo(BigInteger.valueOf(n)) < 0) {
+                low = mid.add(BigInteger.valueOf(1));
+            } else {
+                k = howManyUglyOf(mid.subtract(BigInteger.ONE), aInt, bInt, cInt);
+                if (k.compareTo(nInt) < 0) {
+                    return mid.mod(mod).intValue();
+                } else {
+                    high = high.subtract(BigInteger.TWO);
+                }
+            }
+        }
+        return -1;
     }
 
     public static void main(String[] args) {
