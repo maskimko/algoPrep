@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 
 // Note: There is a better implementation, with stack, and without introducing additional data structures.
+// Also there is a better recursion algorithm, based on recursively building the list fo chained nodes backwards
 
 class Solution {
     public static class Node<T> {
