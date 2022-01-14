@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 
+
+// Note: There is a better implementation, with stack, and without introducing additional data structures.
+
 class Solution {
     public static class Node<T> {
         public T val;
