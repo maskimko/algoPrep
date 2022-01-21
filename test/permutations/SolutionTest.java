@@ -11,6 +11,6 @@ class SolutionTest {
     @Test
     void permute() {
         List<List<Character>> result = Solution.permute(new char[]{'a', 'b', 'c'});
-        assertEquals("[[a, b, c], [b, a, c], [a, c, b], [c, a, b], [b, c, a], [c, b, a]]", result.toString());
+        assertEquals("[[a, b, c], [a, c, b], [b, a, c], [b, c, a], [c, a, b], [c, b, a]]", result.toString());
     }
 }
