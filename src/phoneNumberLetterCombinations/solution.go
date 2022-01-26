@@ -10,8 +10,6 @@ import (
 var lettersMap []string = []string{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"}
 
 func letterCombinationsOfPhoneNumber(digits string) []string {
-	// WRITE YOUR BRILLIANT CODE HERE
-
 	result := make([]string, 0)
 	combinations(digits, &[]rune{}, &result)
 	return result
