@@ -22,6 +22,14 @@ func Test_newspapersSplit(t *testing.T) {
 			},
 			want: 18,
 		},
+		{
+			name: "example 2",
+			args: args{
+				newspapers: []int{2, 3, 5, 7},
+				coworkers:  3,
+			},
+			want: 7,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

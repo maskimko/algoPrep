@@ -28,7 +28,7 @@ func newspapersSplit(newspapers []int, coworkers int) int {
 	min := 1
 	minTime := 1<<31 - 1
 	midTime := -1
-	for min < max {
+	for min <= max {
 		mid := min + (max-min)/2
 		midTime = time(newspapers, mid, coworkers)
 		if midTime < minTime {
@@ -64,6 +64,11 @@ func time(newspapers []int, amount int, coworkers int) int {
 	issue := 0
 
 	for i := 0; i < len(newspapers); i += qty {
+		if issue == coworkers-1 {
+			rest := timeToRead(newspapers[i:])
+			times[coworkers-1] = rest
+			break
+		}
 		qty = assignNewspapers(newspapers[i:], amount)
 		t := timeToRead(newspapers[i : i+qty])
 		times[issue%coworkers] += t
