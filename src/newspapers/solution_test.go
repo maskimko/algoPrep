@@ -39,29 +39,3 @@ func Test_newspapersSplit(t *testing.T) {
 		})
 	}
 }
-
-func Test_assignNewspapers(t *testing.T) {
-	type args struct {
-		newspapers []int
-		capacity   int
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{name: "assign newspapers",
-			args: args{
-				newspapers: []int{1, 2, 3, 4, 5, 6},
-				capacity:   6,
-			},
-			want: 3},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := assignNewspapers(tt.args.newspapers, tt.args.capacity); got != tt.want {
-				t.Errorf("assignNewspapers() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
