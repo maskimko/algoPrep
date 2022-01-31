@@ -14,35 +14,33 @@ type Node struct {
 	right *Node
 }
 
-type NodeLevel struct {
-	node  *Node
-	level int
-}
-
 func levelOrderTraversal(root *Node) [][]int {
-	result := make([][]int, 1)
-	queue := make([]NodeLevel, 0)
-	queue = append(queue, NodeLevel{root, 0})
+	result := make([][]int, 0)
+	queue := make([]*Node, 0)
+	queue = append(queue, root)
+
 	bfs(&queue, &result)
 	return result
 }
 
-func bfs(queue *[]NodeLevel, result *[][]int) {
-	for level := 0; len(*queue) > 0; {
-		nl := (*queue)[0]
-		if nl.level > level {
-			*result = append(*result, nil)
-		}
-		level = nl.level
-		*queue = (*queue)[1:]
-		(*result)[nl.level] = append((*result)[nl.level], nl.node.val)
+func bfs(queue *[]*Node, result *[][]int) {
+	level := 0
+	for len(*queue) > 0 {
+		n := len(*queue)
+		*result = append(*result, nil)
+		for i := 0; i < n; i++ {
+			node := (*queue)[0]
+			*queue = (*queue)[1:]
+			(*result)[level] = append((*result)[level], node.val)
 
-		if nl.node.left != nil {
-			*queue = append(*queue, NodeLevel{nl.node.left, nl.level + 1})
+			if node.left != nil {
+				*queue = append(*queue, node.left)
+			}
+			if node.right != nil {
+				*queue = append(*queue, node.right)
+			}
 		}
-		if nl.node.right != nil {
-			*queue = append(*queue, NodeLevel{nl.node.right, nl.level + 1})
-		}
+		level++
 	}
 }
 
