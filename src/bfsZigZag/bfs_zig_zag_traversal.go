@@ -15,48 +15,48 @@ type Node struct {
 }
 
 func zigZagTraversal(root *Node) [][]int {
-	result := make([][]int, 0)
+	result := make([][]int, 1)
+	result[0] = append(result[0], root.val)
 	queue := make([]*Node, 0)
 	queue = append(queue, root)
-
 	bfs(&queue, &result)
 	return result
 }
 
 func bfs(queue *[]*Node, result *[][]int) {
 	level := 0
-	var stack []*Node
-	for len(*queue) > 0 || len(stack) > 0 {
-		n := len(*queue)
-		*result = append(*result, nil)
-		for i := 0; i < n; i++ {
+	for len(*queue) > 0 {
+
+		items := len(*queue)
+		var levelQueue []*Node
+		level++
+		for i := 0; i < items; i++ {
 			node := (*queue)[0]
 			*queue = (*queue)[1:]
-			(*result)[level] = append((*result)[level], node.val)
-			if level%2 == 0 {
-				if node.right != nil {
-					*queue = append(*queue, node.right)
-				}
+			if node != nil {
 				if node.left != nil {
-					*queue = append(*queue, node.left)
+					levelQueue = append(levelQueue, node.left)
+				}
+				if node.right != nil {
+					levelQueue = append(levelQueue, node.right)
+				}
+			}
+		}
+		if len(levelQueue) > 0 {
+			*result = append(*result, nil)
+			for _, n := range levelQueue {
+				*queue = append(*queue, n)
+			}
+			if level%2 == 0 {
+				for _, n := range levelQueue {
+					(*result)[level] = append((*result)[level], n.val)
 				}
 			} else {
-				if node.right != nil {
-					stack = append([]*Node{node.right}, stack...)
+				for n := len(levelQueue) - 1; n >= 0; n-- {
+					(*result)[level] = append((*result)[level], levelQueue[n].val)
 				}
-				if node.left != nil {
-					stack = append([]*Node{node.left}, stack...)
-				}
-
 			}
 		}
-		for _, node := range stack {
-			if node != nil {
-				*queue = append(*queue, node)
-			}
-		}
-		stack = nil
-		level++
 	}
 }
 
