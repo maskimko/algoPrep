@@ -1,0 +1,11 @@
+[[a c l x],
+ [b l o x],
+ [x e h x],
+ [x x x x]]
+
+2-dimentional array
+
+dictionary.is_word(str)
+0 = no
+-1 = it's part of a word
+1 = it's a complete word
