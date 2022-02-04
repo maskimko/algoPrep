@@ -39,25 +39,6 @@ func walk(i int, s string, path *[]string, result *[][]string) {
 	walk(i+1, s, path, result)
 }
 
-func backtrack(i, j int, s string, path *[]string, result *[][]string) {
-	if i >= j {
-		return
-	}
-	m := (j - i) / 2
-	for w := 0; m-w > i; w++ {
-		r := isPalindrome(s[m-w : m+1+w])
-		if r {
-			*path = append(*path, s[m-w:m+1+w])
-			backtrack(i, m-w, s, path, result)
-			backtrack(m+1+w, j, s, path, result)
-		} else {
-			break
-		}
-	}
-	backtrack(i+1, j, s, path, result)
-	backtrack(i, j-1, s, path, result)
-}
-
 func isPalindrome(p string) bool {
 	if len(p) == 0 {
 		return false
