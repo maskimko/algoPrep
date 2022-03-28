@@ -29,6 +29,18 @@ func Test_taskScheduling2(t *testing.T) {
 				},
 			},
 			want: 101},
+		{name: "case 5",
+			args: args{
+				tasks: strings.Split("aaaabc bbbbbabc cccccabc ddddddabc", " "),
+				times: []int{1, 2, 3, 1},
+				requirements: [][]string{
+					{"aaaabc", "bbbbbabc"},
+					{"aaaabc", "cccccabc"},
+					{"bbbbbabc", "ddddddabc"},
+					{"cccccabc", "ddddddabc"},
+				},
+			},
+			want: 5},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

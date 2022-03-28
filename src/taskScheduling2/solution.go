@@ -9,11 +9,12 @@ import (
 )
 
 type task struct {
-	id      string
-	parents int
-	deps    []*task
-	time    int
-	visited bool
+	id           string
+	parents      int
+	deps         []*task
+	requiredTime int
+	visited      bool
+	spentTime    int
 }
 
 func countParents(graph map[string]*task) {
@@ -30,7 +31,7 @@ func countParents(graph map[string]*task) {
 func buildGraph(tasks []string, times []int, requirements [][]string) map[string]*task {
 	taskMap := make(map[string]*task)
 	for i := range tasks {
-		taskMap[tasks[i]] = &task{id: tasks[i], time: times[i]}
+		taskMap[tasks[i]] = &task{id: tasks[i], requiredTime: times[i]}
 	}
 	for _, r := range requirements {
 		for i := 1; i < len(r); i++ {
@@ -44,15 +45,16 @@ func taskScheduling2(tasks []string, times []int, requirements [][]string) int {
 	graph := buildGraph(tasks, times, requirements)
 	countParents(graph)
 	queue := make([]string, 0)
+	totalTime := 0
 	for k, t := range graph {
 		if t.parents == 0 {
 			queue = append(queue, k)
+			t.spentTime = t.requiredTime
 		}
 	}
-	totalTime := 0
+
 	for len(queue) > 0 {
 		size := len(queue)
-		maxTime := 0
 		for n := 0; n < size; n++ {
 			c := queue[0]
 			queue = queue[1:]
@@ -60,17 +62,19 @@ func taskScheduling2(tasks []string, times []int, requirements [][]string) int {
 				continue
 			}
 			graph[c].visited = true
-			if maxTime < graph[c].time {
-				maxTime = graph[c].time
+			if totalTime < graph[c].spentTime {
+				totalTime = graph[c].spentTime
 			}
 			for _, j := range graph[c].deps {
 				graph[j.id].parents--
 				if graph[j.id].parents == 0 {
+					if graph[j.id].spentTime < graph[c].spentTime+graph[j.id].requiredTime {
+						graph[j.id].spentTime += graph[c].spentTime + graph[j.id].requiredTime
+					}
 					queue = append(queue, j.id)
 				}
 			}
 		}
-		totalTime += maxTime
 	}
 	return totalTime
 }
