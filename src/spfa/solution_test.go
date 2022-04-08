@@ -57,7 +57,8 @@ func Test_shortestPath(t *testing.T) {
 					3: {{1, 1}}},
 				root:   0,
 				target: 3,
-			}},
+			},
+			want: 2},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

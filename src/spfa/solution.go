@@ -16,8 +16,28 @@ type edge struct {
 
 func shortestPath(graph map[int][]edge, root int, target int) int {
 	// WRITE YOUR BRILLIANT CODE HERE
-
-	return 0
+	distances := make([]int, len(graph))
+	for i := 0; i < len(distances); i++ {
+		distances[i] = 1<<32 - 1
+	}
+	var queue []int
+	distances[root] = 0
+	queue = append(queue, root)
+	for len(queue) > 0 {
+		c := queue[0]
+		queue = queue[1:]
+		if c == target {
+			return distances[c]
+		}
+		for n := 0; n < len(graph[c]); n++ {
+			if distances[graph[c][n].to] < graph[c][n].weight+distances[c] {
+				continue
+			}
+			distances[graph[c][n].to] = graph[c][n].weight + distances[c]
+			queue = append(queue, graph[c][n].to)
+		}
+	}
+	return -1
 }
 
 func shortestPathStrInput(input string) (int, error) {
