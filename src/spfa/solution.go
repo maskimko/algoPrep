@@ -26,18 +26,15 @@ func shortestPath(graph map[int][]edge, root int, target int) int {
 	for len(queue) > 0 {
 		c := queue[0]
 		queue = queue[1:]
-		if c == target {
-			return distances[c]
-		}
 		for n := 0; n < len(graph[c]); n++ {
-			if distances[graph[c][n].to] < graph[c][n].weight+distances[c] {
+			if distances[graph[c][n].to] <= graph[c][n].weight+distances[c] {
 				continue
 			}
 			distances[graph[c][n].to] = graph[c][n].weight + distances[c]
 			queue = append(queue, graph[c][n].to)
 		}
 	}
-	return -1
+	return distances[target]
 }
 
 func shortestPathStrInput(input string) (int, error) {
