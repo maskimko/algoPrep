@@ -1,0 +1,4 @@
+Actually this is not a dijkstra algorithm, but it is a solution of 'uniform cost search' task.
+The difference is that in dijkstra algorithm, all distances goes to the queue in the beginning,
+and then priorities of processed nodes changes.
+In my solution I add distances to the queue, as algorithm goes. This is the main difference.
