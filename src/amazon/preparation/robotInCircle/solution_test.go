@@ -11,7 +11,7 @@ func Test_isRobotBounded(t *testing.T) {
 		args args
 		want bool
 	}{
-		{name: "from description",
+		{name: "from description.txt",
 			args: args{instructions: "GGLLGG"},
 			want: true},
 	}
