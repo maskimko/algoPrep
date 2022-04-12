@@ -1,0 +1,4 @@
+Description of this task is available at: https://cybergeeksquad.co/2021/06/autoscale-policy-utilization-check.html
+Also there is a Youtube version here: https://www.youtube.com/watch?v=eZZehso7cTE
+
+Full name the task is: "Amazon Online Assessment (OA) - Autoscale Policy, Utilization Check"
