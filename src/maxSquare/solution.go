@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -68,6 +69,18 @@ func splitWords(s string) []string {
 		return []string{}
 	}
 	return strings.Split(s, " ")
+}
+
+func readAndRun(reader io.Reader) int {
+	scanner := bufio.NewScanner(reader)
+	scanner.Scan()
+	matrixLength, _ := strconv.Atoi(scanner.Text())
+	matrix := [][]int{}
+	for i := 0; i < matrixLength; i++ {
+		scanner.Scan()
+		matrix = append(matrix, arrayAtoi(splitWords(scanner.Text())))
+	}
+	return maximalSquare(matrix)
 }
 
 func main() {
