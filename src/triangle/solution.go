@@ -38,6 +38,23 @@ func minimumTotal(triangle [][]int) int {
 	return dfs(triangle, memo, 0, 0)
 }
 
+func minimumTotalBottomUp(triangle [][]int) int {
+	total := make([]int, len(triangle[len(triangle)-1]))
+	for i := 0; i < len(triangle[len(triangle)-1]); i++ {
+		total[i] = triangle[len(triangle)-1][i]
+	}
+	for i := len(triangle) - 2; i >= 0; i-- {
+		for j := 0; j < len(triangle[i]); j++ {
+			if total[j] < total[j+1] {
+				total[j] = total[j] + triangle[i][j]
+			} else {
+				total[j] = total[j+1] + triangle[i][j]
+			}
+		}
+	}
+	return total[0]
+}
+
 func arrayAtoi(arr []string) []int {
 	res := []int{}
 	for _, x := range arr {
