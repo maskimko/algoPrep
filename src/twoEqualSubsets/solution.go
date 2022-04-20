@@ -13,7 +13,9 @@ top to bottom DFS solution
 */
 
 func dfs(nums []int, target, mask int, memo map[int]int) bool {
-
+	if len(nums) < 2 {
+		return false
+	}
 	if res, ok := memo[mask]; ok {
 		return res == target
 	}
