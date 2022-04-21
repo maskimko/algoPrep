@@ -17,6 +17,12 @@ func Test_partition2(t *testing.T) {
 		{name: "case 1",
 			args: args{s: "aab"},
 			want: 2},
+		{name: "my case 1",
+			args: args{s: "eabcdedcbaf"},
+			want: 2},
+		{name: "my case 2",
+			args: args{s: "eababaf"},
+			want: 3},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

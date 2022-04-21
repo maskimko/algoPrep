@@ -8,6 +8,8 @@ import (
 
 /*
 NOT SOLVED
+
+Check https://www.geeksforgeeks.org/palindrome-partitioning-dp-17/
 */
 
 func partition2(s string) int {
@@ -19,14 +21,17 @@ func partition2(s string) int {
 			dp[i][j] = true
 		}
 	}
+	chars := []rune(s)
 	for l := 1; l < len(s); l++ {
 		for i := 0; i < len(s)-l; i++ {
 			j := i + l
-			dp[i][j] = dp[i+1][j-1] && []rune(s)[i] == []rune(s)[j]
+			one := chars[i]
+			other := chars[j]
+			dp[i][j] = dp[i+1][j-1] && one == other
 		}
 	}
 	for i := 0; i < len(s); i++ {
-		for j := 0; j <= i; j++ {
+		for j := len(s) - 1; j >= len(s)-i-1; j-- {
 			if dp[i][j] {
 				partitionCount[i]++
 			}
