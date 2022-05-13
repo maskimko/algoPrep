@@ -30,7 +30,8 @@ func partition2(s string) int {
 			dp[i][j] = dp[i+1][j-1] && one == other
 		}
 	}
-	for i := 0; i < len(s); i++ {
+	partitionCount[0] = 1
+	for i := 1; i < len(s); i++ {
 		for j := len(s) - 1; j >= len(s)-i-1; j-- {
 			if dp[i][j] {
 				partitionCount[i]++
